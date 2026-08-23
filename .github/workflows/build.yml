@@ -21,6 +21,7 @@ jobs:
             gcc-arm-linux-gnueabihf \
             g++-arm-linux-gnueabihf \
             binutils-arm-linux-gnueabihf
+            zip
 
       - name: Create toolchain aliases
         run: |
