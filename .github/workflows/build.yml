@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential
+
+      - name: Build runtime
+        run: |
+          make -C runtime
+
+      - name: Create PortMaster package
+        run: |
+          chmod +x portmaster/build_port.sh
+          portmaster/build_port.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: .
