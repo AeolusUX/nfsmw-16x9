@@ -20,7 +20,7 @@ jobs:
             build-essential \
             gcc-arm-linux-gnueabihf \
             g++-arm-linux-gnueabihf \
-            binutils-arm-linux-gnueabihf
+            binutils-arm-linux-gnueabihf \
             zip \
             unzip \
             file \
