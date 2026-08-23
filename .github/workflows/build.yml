@@ -21,7 +21,10 @@ jobs:
             gcc-arm-linux-gnueabihf \
             g++-arm-linux-gnueabihf \
             binutils-arm-linux-gnueabihf
-            zip
+            zip \
+            unzip \
+            file \
+            rsync
 
       - name: Create toolchain aliases
         run: |
