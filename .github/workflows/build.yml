@@ -19,7 +19,7 @@ jobs:
             build-essential \
             gcc-arm-linux-gnueabihf \
             g++-arm-linux-gnueabihf \
-            binutils-arm
+            binutils-arm-linux-gnueabihf
 
       - name: Create compiler symlink
         run: |
