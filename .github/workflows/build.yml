@@ -14,7 +14,10 @@ jobs:
       - name: Install tools
         run: |
           sudo apt update
-          sudo apt install -y build-essential
+          sudo apt install -y \
+            build-essential \
+            gcc-arm-linux-gnueabihf \
+            g++-arm-linux-gnueabihf
 
       - name: Build runtime
         run: |
