@@ -21,14 +21,20 @@ jobs:
             g++-arm-linux-gnueabihf \
             binutils-arm-linux-gnueabihf
 
-      - name: Create compiler symlink
+      - name: Create toolchain aliases
         run: |
           sudo ln -sf /usr/bin/arm-linux-gnueabihf-gcc /usr/local/bin/arm-unknown-linux-gnueabihf-gcc
-          sudo ln -sf /usr/bin/arm-linux-gnueabihf-g++ /usr/local/bin/
+          sudo ln -sf /usr/bin/arm-linux-gnueabihf-g++ /usr/local/bin/arm-unknown-linux-gnueabihf-g++
+          sudo ln -sf /usr/bin/arm-linux-gnueabihf-objcopy /usr/local/bin/arm-unknown-linux-gnueabihf-objcopy
+          sudo ln -sf /usr/bin/arm-linux-gnueabihf-objdump /usr/local/bin/arm-unknown-linux-gnueabihf-objdump
 
-      - name: Verify compiler
+      - name: Verify toolchain
         run: |
-          which arm-unknown-linux-gnueabihf-gcc
+          which arm-unknown-linux-gnueabihf-gcc || true
+          which arm-unknown-linux-gnueabihf-g++ || true
+          which arm-unknown-linux-gnueabihf-objcopy || true
+          which arm-unknown-linux-gnueabihf-objdump || true
+
           arm-unknown-linux-gnueabihf-gcc --version
 
       - name: Build runtime
