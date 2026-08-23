@@ -24,10 +24,10 @@ jobs:
 
       - name: Create toolchain aliases
         run: |
-          sudo ln -sf /usr/bin/arm-linux-gnueabihf-gcc /usr/local/bin/arm-unknown-linux-gnueabihf-gcc
-          sudo ln -sf /usr/bin/arm-linux-gnueabihf-g++ /usr/local/bin/arm-unknown-linux-gnueabihf-g++
-          sudo ln -sf /usr/bin/arm-linux-gnueabihf-objcopy /usr/local/bin/arm-unknown-linux-gnueabihf-objcopy
-          sudo ln -sf /usr/bin/arm-linux-gnueabihf-objdump /usr/local/bin/arm-unknown-linux-gnueabihf-objdump
+          ln -sf /usr/bin/arm-linux-gnueabihf-gcc /usr/local/bin/arm-unknown-linux-gnueabihf-gcc
+          ln -sf /usr/bin/arm-linux-gnueabihf-g++ /usr/local/bin/arm-unknown-linux-gnueabihf-g++
+          ln -sf /usr/bin/arm-linux-gnueabihf-objcopy /usr/local/bin/arm-unknown-linux-gnueabihf-objcopy
+          ln -sf /usr/bin/arm-linux-gnueabihf-objdump /usr/local/bin/arm-unknown-linux-gnueabihf-objdump
 
       - name: Verify toolchain
         run: |
