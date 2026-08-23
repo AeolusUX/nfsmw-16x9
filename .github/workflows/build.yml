@@ -1,4 +1,4 @@
-name: Build
+name: Build NFSMW R36Ultra
 
 on:
   push:
@@ -9,9 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Install tools
+      - name: Install build tools
         run: |
           sudo apt update
           sudo apt install -y \
@@ -19,17 +20,29 @@ jobs:
             gcc-arm-linux-gnueabihf \
             g++-arm-linux-gnueabihf
 
+      - name: Create compiler symlink
+        run: |
+          sudo ln -sf /usr/bin/arm-linux-gnueabihf-gcc /usr/local/bin/arm-unknown-linux-gnueabihf-gcc
+          sudo ln -sf /usr/bin/arm-linux-gnueabihf-g++ /usr/local/bin/arm-unknown-linux-gnueabihf-g++
+
+      - name: Verify compiler
+        run: |
+          which arm-unknown-linux-gnueabihf-gcc
+          arm-unknown-linux-gnueabihf-gcc --version
+
       - name: Build runtime
         run: |
           make -C runtime
 
-      - name: Create PortMaster package
+      - name: Build PortMaster package
         run: |
           chmod +x portmaster/build_port.sh
           portmaster/build_port.sh
 
-      - name: Upload Artifacts
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build
-          path: .
+          name: nfsmw-r36ultra-build
+          path: |
+            runtime/build
+            portmaster
