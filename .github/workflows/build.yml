@@ -1,4 +1,4 @@
-name: Build NFSMW R36Ultra
+name: Build NFSMW 16x9
 
 on:
   push:
