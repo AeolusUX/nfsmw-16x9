@@ -9,14 +9,22 @@ jobs:
     runs-on: ubuntu-22.04
     container: debian:11
 
+    env:
+      DEBIAN_FRONTEND: noninteractive
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Point apt at Debian archive (bullseye is EOL)
+        run: |
+          cat > /etc/apt/sources.list <<'EOF'
+          deb http://archive.debian.org/debian bullseye main
+          deb http://archive.debian.org/debian-security bullseye-security main
+          EOF
+          echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid
 
       - name: Install build tools
         run: |
-          apt update
-          apt install -y \
+          apt-get update
+          apt-get install -y --no-install-recommends \
             build-essential \
             gcc-arm-linux-gnueabihf \
             g++-arm-linux-gnueabihf \
@@ -24,7 +32,12 @@ jobs:
             zip \
             unzip \
             file \
-            rsync
+            rsync \
+            git \
+            ca-certificates
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Create toolchain aliases
         run: |
@@ -35,11 +48,10 @@ jobs:
 
       - name: Verify toolchain
         run: |
-          which arm-unknown-linux-gnueabihf-gcc || true
-          which arm-unknown-linux-gnueabihf-g++ || true
-          which arm-unknown-linux-gnueabihf-objcopy || true
-          which arm-unknown-linux-gnueabihf-objdump || true
-
+          which arm-unknown-linux-gnueabihf-gcc
+          which arm-unknown-linux-gnueabihf-g++
+          which arm-unknown-linux-gnueabihf-objcopy
+          which arm-unknown-linux-gnueabihf-objdump
           arm-unknown-linux-gnueabihf-gcc --version
 
       - name: Build runtime
