@@ -295,7 +295,7 @@ static int probe_graphics(struct sdl_api *api)
     }
     window = api->create_window(
         "NFS Most Wanted preflight", SDL_WINDOWPOS_UNDEFINED_VALUE,
-        SDL_WINDOWPOS_UNDEFINED_VALUE, 720, 720,
+        SDL_WINDOWPOS_UNDEFINED_VALUE, 1280, 720,
         SDL_WINDOW_FULLSCREEN_VALUE | SDL_WINDOW_OPENGL_VALUE |
             SDL_WINDOW_SHOWN_VALUE);
     if (window == NULL) {
@@ -339,7 +339,7 @@ static int probe_graphics(struct sdl_api *api)
         api->gl_swap_window(window);
         api->delay(60U);
     }
-    if (width != 720 || height != 720) {
+    if (width != 1280 || height != 720) {
         (void)fprintf(stderr, "G5-HOST FAIL expected 640x480 drawable\n");
         goto done;
     }
