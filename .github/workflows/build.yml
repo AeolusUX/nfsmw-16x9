@@ -1,7 +1,6 @@
 name: Build NFSMW 16x9
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
